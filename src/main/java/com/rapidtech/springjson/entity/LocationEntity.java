@@ -8,6 +8,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,6 +34,8 @@ public class LocationEntity {
     private String city;
     @Column(name = "province", length = 100)
     private String province;
+    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LocationEntity> location = new HashSet<>();
 
     public LocationEntity(LocationModel model) {
         BeanUtils.copyProperties(model,this);

@@ -6,10 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class LocationModel {
+public class LocationModel implements Serializable {
     private Long id;
     private String name;
     private String address;

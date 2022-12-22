@@ -6,10 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.BeanUtils;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SchoolModel {
+public class SchoolModel implements Serializable {
     private String title;
     private String name;
     private String level;

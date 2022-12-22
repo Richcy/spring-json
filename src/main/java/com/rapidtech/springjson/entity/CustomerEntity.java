@@ -24,15 +24,9 @@ public class CustomerEntity {
     private Long id;
     @Column(name = "customer_name", length = 100)
     private String fullName;
-    /*@ManyToOne(cascade = CascadeType.ALL)
-    @Column(name = "address_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", insertable = false, updatable = false)
     private LocationEntity address;
-
-     */
-
-    //@Column(name = "address", length = 100)
-    //private String address;
     @Column(name = "gender", length = 20)
     private String gender;
     @Temporal(TemporalType.DATE)
@@ -40,8 +34,9 @@ public class CustomerEntity {
     private Date dateOfBirth;
     @Column(name = "place_of_birth", length = 100)
     private String placeOfBirth;
-    @Column(name = "school", length = 100)
-    private String school;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "school_id", insertable = false, updatable = false)
+    private SchoolEntity school;
 
     public CustomerEntity(CustomerModel model) {
         BeanUtils.copyProperties(model,this);
