@@ -1,5 +1,6 @@
 package com.rapidtech.springjson.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rapidtech.springjson.model.LocationModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +22,14 @@ public class LocationEntity {
     @TableGenerator(name = "location_id_generator", table = "sequence_tab",
     pkColumnName = "gen_name", valueColumnName = "gen_value",
     pkColumnValue = "location_id", initialValue = 0, allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "location_id_generator")
     private Long id;
+    @Column(name = "customer_id", insertable = false, updatable = false)
+    private Long customerId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
     @Column(name = "location_name", length = 50)
     private String name;
     @Column(name = "address", length = 100)
@@ -34,8 +42,7 @@ public class LocationEntity {
     private String city;
     @Column(name = "province", length = 100)
     private String province;
-    @OneToMany(mappedBy = "location", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<LocationEntity> location = new HashSet<>();
+
 
     public LocationEntity(LocationModel model) {
         BeanUtils.copyProperties(model,this);

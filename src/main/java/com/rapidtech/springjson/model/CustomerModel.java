@@ -9,16 +9,17 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerModel {
+public class CustomerModel{
     private Long id;
     private String fullName;
-    private List<LocationModel> address;
+    private List<LocationModel> location;
     private String gender;
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")

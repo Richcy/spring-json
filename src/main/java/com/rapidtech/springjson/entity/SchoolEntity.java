@@ -1,5 +1,6 @@
 package com.rapidtech.springjson.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rapidtech.springjson.model.SchoolModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,7 +21,14 @@ public class SchoolEntity {
     @TableGenerator(name = "school_id_generator", table = "sequence_tab",
     pkColumnName = "gen_name", valueColumnName = "gen_value",
     pkColumnValue = "school_id", initialValue = 0, allocationSize = 0)
+    @GeneratedValue(strategy = GenerationType.TABLE, generator = "school_id_generator")
     private Long id;
+    @Column (name = "customer_id", updatable = false, insertable = false)
+    private Long costumerId;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "customer_id", nullable = false)
+    private CustomerEntity customer;
 
     @Column(name = "title", length = 20)
     private String title;
@@ -28,8 +36,6 @@ public class SchoolEntity {
     private String name;
     @Column(name = "level", length = 20)
     private String level;
-    @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<SchoolEntity> school = new HashSet<>();
 
     public SchoolEntity(SchoolModel model) {
         BeanUtils.copyProperties(model,this);

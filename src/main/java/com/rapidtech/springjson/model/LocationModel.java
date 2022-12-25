@@ -18,6 +18,7 @@ public class LocationModel implements Serializable {
     private String district;
     private String city;
     private String province;
+    private String village;
 
     public LocationModel(LocationEntity entity) {
         BeanUtils.copyProperties(entity,this);
